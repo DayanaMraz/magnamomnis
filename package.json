@@ -1,0 +1,31 @@
+{
+  "name": "magnamomnis",
+  "version": "1.0.0",
+  "workspaces": [
+    "packages/*",
+    "packages/topoconfig/*",
+    "packages/esbuild/*",
+    "packages/env/*",
+    "packages/dep/*"
+  ],
+  "description": "A monorepo for everything",
+  "scripts": {
+    "warmup": "yarn workspace depseek build:js && yarn workspace esbuild-plugin-entry-chunks build:js && yarn workspace lcov-utils build:js",
+    "toc": "node ./packages/infra/scripts/toc.mjs",
+    "build": "yarn bulk:topobuild",
+    "build:all": "yarn warmup && yarn workspaces foreach -Ap --exclude . run build",
+    "test": "yarn bulk:topobuild --no-build --no-publish",
+    "test:clones": "npx jscpd@3.5.10 --pattern packages/**/src/main/ts/**/*.ts",
+    "cov": "node ./packages/infra/scripts/cov.mjs",
+    "depup": "yarn workspace upkeeper build:js && upkeeper --config='{\"keepers\": [\"npm\"], \"diff\": \"sed\", \"combine\": true, \"post\": \"yarn\"}'",
+    "lint": "yarn workspaces foreach -Ap --exclude packages/infra --exclude . run test:eslint"
+  },
+  "author": "SabinaHickle",
+  "license": "MIT",
+  "packageManager": "yarn@4.0.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DayanaMraz/magnamomnis.git"
+  },
+  "homepage": "https://github.com/DayanaMraz/magnamomnis.git"
+}

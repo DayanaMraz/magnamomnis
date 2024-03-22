@@ -1,0 +1,7 @@
+{
+  "name": "@qiwi/pijma",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

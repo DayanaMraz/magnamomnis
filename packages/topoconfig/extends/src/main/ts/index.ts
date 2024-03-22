@@ -1,0 +1,5 @@
+export { load, loadSync, resolve, parse } from './load.js'
+export { extend } from './extend.js'
+export { populate, populateSync } from './populate.js'
+export { clone } from './util.js'
+export * from './interface.js'

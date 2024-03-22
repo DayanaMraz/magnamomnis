@@ -1,0 +1,59 @@
+{
+  "name": "upkeeper",
+  "version": "0.0.0",
+  "description": "Script generator for deps updating",
+  "type": "module",
+  "main": "target/cjs/index.cjs",
+  "exports": {
+    ".": {
+      "types": "./target/dts/index.d.ts",
+      "require": "./target/cjs/index.cjs",
+      "import": "./target/esm/index.mjs",
+      "default": "./target/esm/index.mjs"
+    }
+  },
+  "module": "target/esm/index.mjs",
+  "types": "target/dts/index.d.ts",
+  "bin": "./target/esm/cli.mjs",
+  "files": [
+    "target/cjs",
+    "target/esm",
+    "target/dts",
+    "target/coverage/lcov.info"
+  ],
+  "scripts": {
+    "build": "concurrently 'npm:build:*'",
+    "build:js": "yarn build:esbuild --entry='./src/main/ts/index.ts:./src/main/ts/cli.ts' --banner",
+    "build:dts": "yarn build:tsc",
+    "build:docs": "yarn build:typedoc",
+    "test": "concurrently 'npm:test:*'",
+    "test:lint": "yarn test:eslint",
+    "test:unit": "yarn test:c8",
+    "test:it": "node ./target/esm/cli.mjs --dryrun",
+    "publish:draft": "yarn build && npm publish --no-git-tag-version --tag draft"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antongolub/misc.git",
+    "directory": "packages/upkeeper"
+  },
+  "author": "Anton Golub <antongolub@antongolub.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antongolub/misc/issues"
+  },
+  "homepage": "https://github.com/antongolub/misc/tree/master/packages/upkeeper",
+  "devDependencies": {
+    "@antongolub/infra": "workspace:*",
+    "@types/node": "^20.11.17"
+  },
+  "dependencies": {
+    "dot": "^2.0.0-beta.1",
+    "fast-glob": "^3.3.2",
+    "minimist": "^1.2.8",
+    "semver": "^7.6.0"
+  }
+}
